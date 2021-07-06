@@ -83,12 +83,13 @@ class MaptaskBuilder(BaseBuilder):
             "-r",
             "-np",
             "-R",
-            "index.html*",
+            "index.html*",  # -R: 拒绝下载的扩展名列表
             "-nd",
             self.AUDIO_URL,
             #"-q",
             #"--show-progress",
             "--progress=bar",
+            "-nc",          # 不要重复下载已存在的文件
         ]
         try:
             subprocess.call(wget_cmd)
