@@ -102,8 +102,9 @@ class SwitchboardBuilder(BaseBuilder):
         tar_path = join(self.root, basename(self.URL))
         print(f"Downloading {self.NAME} annotations")
         if not exists(tar_path):
+            print(f"{tar_path} downloading to {self.root}")
             subprocess.call(
-                ["wget", "-P", self.root, self.URL, "-q", "--show-progress"]
+                ["wget", "-P", self.root, self.URL, "--progress=bar"]   # "-q", "--show-progress", (these two options only work for wget version >=1.16)
             )
 
         print("Extracting")
