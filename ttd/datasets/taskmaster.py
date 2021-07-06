@@ -52,7 +52,7 @@ class TaskmasterBuilder(BaseBuilder):
                     wget(self.tm1_test, join(self.raw_data_root, "tm1_test.txt"))
 
     def download_audio(self):
-        raise NotImplementedError("Taskmaster has no audio")
+        raise NotImplementedError("{self.NAME} has no audio")
 
     def _process_turn_level(self):
         makedirs(self.turn_level_root, exist_ok=True)

@@ -24,7 +24,7 @@ class DailydialogBuilder(BaseBuilder):
         raise NotImplementedError("{self.NAME} does not contain word-level timings")
 
     def download_audio(self):
-        raise NotImplementedError("Taskmaster has no audio")
+        raise NotImplementedError("{self.NAME} has no audio")
 
     def download_text(self):
         train_data_path = join(self.raw_data_root, "train/dialogues_train.txt")

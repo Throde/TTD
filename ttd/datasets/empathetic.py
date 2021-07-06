@@ -35,7 +35,7 @@ class EmpatheticBuilder(BaseBuilder):
         raise NotImplementedError("{self.NAME} does not contain word-level timings")
 
     def download_audio(self):
-        raise NotImplementedError("Taskmaster has no audio")
+        raise NotImplementedError("{self.NAME} has no audio")
 
     def download_text(self):
         if not exists(join(self.raw_data_root, "train.csv")):
