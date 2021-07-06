@@ -2,6 +2,10 @@ import math
 import torch
 from ttd.utils import find_island_idx_len
 
+# DH: librosa slp tool. could read [.sph] file
+# src: https://stackoverflow.com/questions/30449860/read-sph-files-in-python
+import librosa
+
 
 def vad_from_word_level(dialog_words, duration):
     """ Hardcoded for dialog / two speakers """
@@ -11,6 +15,8 @@ def vad_from_word_level(dialog_words, duration):
         assert isinstance(speaker_id, int), "speaker_id must be an int"
 
         print(dw["start"], dw["end"], duration)
+        duration = librosa.get_duration(duration)
+        print("librosa duration:", duration)
         start = dw["start"] / duration
         end = dw["end"] / duration
         vad[speaker_id].append((start, end))
