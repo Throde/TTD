@@ -257,7 +257,7 @@ class BaseBuilder(object):
 
             # Makes sure that the data we need exists
             self.prepare_word_level()
-            # DH: for MyTurnGPT datasets, I need maptask and switchboard to also download audio files
+            # DH: for MyTurnGPT datasets, I need audio files from maptask and switchboard
             try:
                 self.download_audio()
             except:
@@ -314,7 +314,7 @@ class BaseBuilder(object):
 
     def get_audio_path(self, name):
         audio_name = name + self.AUDIO_EXT
-        return join(self.audio_root, audio_name)
+        return join(self.audio_root, audio_name).replace(".json", "")   # DH: remove '.json' ext
 
     def prepare_turn_level_tokens(self, tokenizer):
         if not self.check_if_dir_exists(self.tokenized_turn_level_root, ".json"):
