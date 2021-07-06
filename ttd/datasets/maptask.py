@@ -57,7 +57,7 @@ class MaptaskBuilder(BaseBuilder):
         Downloads maptask annotations
         """
         tmp_root = "/tmp"
-        wget_cmd = ["wget", "-P", tmp_root, self.URL, "-q", "--show-progress"]
+        wget_cmd = ["wget", "-P", tmp_root, self.URL, "--progress=bar"]   # "-q", "--show-progress", (these two options only work for wget version >=1.16)
 
         print(f"Downloading {self.NAME} annotations")
         print("-----------------------")
