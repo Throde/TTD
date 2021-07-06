@@ -257,6 +257,12 @@ class BaseBuilder(object):
 
             # Makes sure that the data we need exists
             self.prepare_word_level()
+            # DH: for MyTurnGPT datasets, I need maptask and switchboard to also download audio files
+            from ttd.datasets.maptask import MaptaskBuilder
+            from ttd.datasets.switchboard import SwitchboardBuilder
+
+            if type(self) in [MaptaskBuilder, SwitchboardBuilder]:
+                self.download_audio()
 
             # Iterate over the word_level_dialogs and constructs vad base on the duration
             # (using the audio path and the sox to extract the duration of the audio)

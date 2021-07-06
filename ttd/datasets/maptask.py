@@ -86,8 +86,9 @@ class MaptaskBuilder(BaseBuilder):
             "index.html*",
             "-nd",
             self.AUDIO_URL,
-            "-q",
-            "--show-progress",
+            #"-q",
+            #"--show-progress",
+            "--progress=bar",
         ]
         try:
             subprocess.call(wget_cmd)
