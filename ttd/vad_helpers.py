@@ -15,8 +15,8 @@ def vad_from_word_level(dialog_words, duration):
         assert isinstance(speaker_id, int), "speaker_id must be an int"
 
         print(dw["start"], dw["end"], dw, duration) # 0.0594 0.2685 data/maptask/audio/q6ec1.json.wav
-        duration = librosa.get_duration(duration)
-        print("librosa duration:", duration)
+        duration = librosa.get_duration(filename=duration)
+        print("librosa duration (in s):", duration)
         start = dw["start"] / duration
         end = dw["end"] / duration
         vad[speaker_id].append((start, end))

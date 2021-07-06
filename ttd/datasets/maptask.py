@@ -76,26 +76,30 @@ class MaptaskBuilder(BaseBuilder):
         Downloads maptask audio files into:
             research/research/datasets/$ROOT/MapTask/audio
         """
-        wget_cmd = [
-            "wget",
-            "-P",
-            self.audio_root,
-            "-r",
-            "-np",
-            "-R",
-            "index.html*",  # -R: 拒绝下载的扩展名列表
-            "-nd",
-            self.AUDIO_URL,
-            #"-q",
-            #"--show-progress",
-            "--progress=bar",
-            "-nc",          # 不要重复下载已存在的文件
-        ]
-        try:
-            subprocess.call(wget_cmd)
-        except:
-            print("Download interrupted...")
+        if not self.check_if_dir_exists(self.audio_root, self.AUDIO_EXT):
+            wget_cmd = [
+                "wget",
+                "-P",
+                self.audio_root,
+                "-r",
+                "-np",
+                "-R",
+                "index.html*",  # -R: 拒绝下载的扩展名列表
+                "-nd",
+                self.AUDIO_URL,
+                #"-q",
+                #"--show-progress",
+                "--progress=bar",
+                "-nc",          # 不要重复下载已存在的文件
+            ]
+            try:
+                subprocess.call(wget_cmd)
+            except:
+                print("Download interrupted...")
 
+        else:
+            print(">> Audio files exists.")
+            
         # rename audio files: q1ec1.mix.wav -> q1ec1.wav
         for wav_file in glob(join(self.audio_root, "*.mix.wav")):
             shutil.move(wav_file, wav_file.replace(".mix", ""))
@@ -104,6 +108,7 @@ class MaptaskBuilder(BaseBuilder):
             fpath = join(self.audio_root, f)
             if not f.endswith(".wav"):
                 subprocess.call(["rm", fpath])
+        
 
     def _process_turn_level(self):
         """
