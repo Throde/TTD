@@ -10,8 +10,8 @@ def vad_from_word_level(dialog_words, duration):
         speaker_id = dw["speaker_id"]
         assert isinstance(speaker_id, int), "speaker_id must be an int"
 
-        start = dw["start"] / duration
-        end = dw["end"] / duration
+        start = dw["start"] / float(duration)
+        end = dw["end"] / float(duration)
         vad[speaker_id].append((start, end))
     return vad
 
