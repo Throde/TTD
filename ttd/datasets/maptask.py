@@ -131,15 +131,17 @@ class MaptaskBuilder(BaseBuilder):
 
         # DH break point: word_level_files
         print(">> word level files:", word_level_files)
+        print(word_level_files[0], 
+                basename(word_level_files[0]), 
+                self.get_audio_path(basename(word_level_files[0]).replace(".json", "")),
+                join(self.vad_root, basename(word_level_files[0]).replace(".json", ".pt")))
+        input(">> Going to process word level into turns... Press any key.")
 
         for word_level_path in tqdm(word_level_files):
             json_name = basename(word_level_path)
 
             audio_path = self.get_audio_path(json_name.replace(".json", ""))
             vad_path = join(self.vad_root, json_name.replace(".json", ".pt"))
-
-            # DH break point：
-            print("\n\n>> json_name, audio_path, and vad_path:", json_name, audio_path, vad_path)
 
             word_level_dialog = read_json(word_level_path)
             vad = torch.load(vad_path)  # list of (start, end) times
