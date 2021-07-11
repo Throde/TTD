@@ -53,35 +53,34 @@ def wget(url, to):
 
 
 def get_duration_sox(fpath):
-    #print(f"\n\n\n\n\n\n {fpath} \n\n\n\n\n\n\n")
     return librosa.get_duration(filename=fpath)
-    out = (
-        subprocess.check_output(f"sox --i {fpath}", shell=True)
-        .decode("utf-8")
-        .strip()
-        .split("\n")
-    )
-    for line in out:
-        if line.lower().startswith("duration"):
-            l = [f for f in line.split(" ") if not f == ""]
-            duration = l[2].split(":")
-            hh, mm, ss = duration
-            total = int(hh) * 60 * 60 + int(mm) * 60 + float(ss)    # unit: ss
-    return total
+    # out = (
+    #     subprocess.check_output(f"sox --i {fpath}", shell=True)
+    #     .decode("utf-8")
+    #     .strip()
+    #     .split("\n")
+    # )
+    # for line in out:
+    #     if line.lower().startswith("duration"):
+    #         l = [f for f in line.split(" ") if not f == ""]
+    #         duration = l[2].split(":")
+    #         hh, mm, ss = duration
+    #         total = int(hh) * 60 * 60 + int(mm) * 60 + float(ss)    # unit: ss
+    # return total
 
 
 def get_sample_rate_sox(fpath):
-    return librosa.get_samplerate(filename=fpath)
-    out = (
-        subprocess.check_output(f"sox --i {fpath}", shell=True)
-        .decode("utf-8")
-        .strip()
-        .split("\n")
-    )
-    for line in out:
-        if line.lower().startswith("sample rate"):
-            l = [f for f in line.split(" ") if not f == ""]
-            return int(l[-1])
+    return int( librosa.get_samplerate(fpath) )
+    # out = (
+    #     subprocess.check_output(f"sox --i {fpath}", shell=True)
+    #     .decode("utf-8")
+    #     .strip()
+    #     .split("\n")
+    # )
+    # for line in out:
+    #     if line.lower().startswith("sample rate"):
+    #         l = [f for f in line.split(" ") if not f == ""]
+    #         return int(l[-1])
 
 
 def percent_to_onehot(vad, n_frames, pad=0):
