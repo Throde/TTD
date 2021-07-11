@@ -5,6 +5,8 @@ from os.path import split, join
 
 import torch
 
+# DH: librosa replacing sox
+import librosa
 
 def get_run_dir(current_file, run_dir="runs"):
     dir_path = split(current_file)[0]
@@ -51,6 +53,8 @@ def wget(url, to):
 
 
 def get_duration_sox(fpath):
+    print(f"\n\n\n\n\n\n {fpath} \n\n\n\n\n\n\n")
+    print(librosa.get_duration(filename=file_path), "\n\n\n\n\n\n\n\n")
     out = (
         subprocess.check_output(f"sox --i {fpath}", shell=True)
         .decode("utf-8")
@@ -62,7 +66,7 @@ def get_duration_sox(fpath):
             l = [f for f in line.split(" ") if not f == ""]
             duration = l[2].split(":")
             hh, mm, ss = duration
-            total = int(hh) * 60 * 60 + int(mm) * 60 + float(ss)
+            total = int(hh) * 60 * 60 + int(mm) * 60 + float(ss)    # unit: ss
     return total
 
 
