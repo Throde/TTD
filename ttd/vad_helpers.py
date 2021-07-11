@@ -10,19 +10,19 @@ import librosa
 def vad_from_word_level(dialog_words, file_path):
     """ Hardcoded for dialog / two speakers """
     vad = [[], []]
-    duration = librosa.get_duration(filename=file_path)
+    duration = librosa.get_duration(filename=file_path) # data/maptask/audio/q6ec1.json.wav
 
     for dw in dialog_words:
         speaker_id = dw["speaker_id"]
         assert isinstance(speaker_id, int), "speaker_id must be an int"
 
-        print(dw["start"], dw["end"], dw) # 0.0594 0.2685 data/maptask/audio/q6ec1.json.wav
+        #print(dw["start"], dw["end"], dw) # 0.0594 0.2685
         start = dw["start"] / duration
         end = dw["end"] / duration
         vad[speaker_id].append((start, end))
     
-    print(">> vad:", vad)
-    input()
+    #print(">> vad:", vad)
+    #input()
     return vad
 
 
