@@ -7,20 +7,22 @@ from ttd.utils import find_island_idx_len
 import librosa
 
 
-def vad_from_word_level(dialog_words, duration):
+def vad_from_word_level(dialog_words, file_path):
     """ Hardcoded for dialog / two speakers """
     vad = [[], []]
+    duration = librosa.get_duration(filename=file_path)
+
     for dw in dialog_words:
         speaker_id = dw["speaker_id"]
         assert isinstance(speaker_id, int), "speaker_id must be an int"
 
-        print(dw["start"], dw["end"], dw, duration) # 0.0594 0.2685 data/maptask/audio/q6ec1.json.wav
-        duration = librosa.get_duration(filename=duration)
-        print("librosa duration (in s):", duration)
+        print(dw["start"], dw["end"], dw) # 0.0594 0.2685 data/maptask/audio/q6ec1.json.wav
         start = dw["start"] / duration
         end = dw["end"] / duration
         vad[speaker_id].append((start, end))
-        input()
+    
+    print(">> vad:", vad)
+    input()
     return vad
 
 
