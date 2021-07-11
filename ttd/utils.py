@@ -5,8 +5,7 @@ from os.path import split, join
 
 import torch
 
-# DH: librosa replacing sox
-import librosa
+
 
 def get_run_dir(current_file, run_dir="runs"):
     dir_path = split(current_file)[0]
@@ -51,6 +50,9 @@ def wget(url, to):
     # system(cmd)
     subprocess.call(cmd)
 
+
+# DH: librosa replacing sox
+import librosa
 
 def get_duration_sox(fpath):
     return librosa.get_duration(filename=fpath)
