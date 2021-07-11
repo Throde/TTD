@@ -53,8 +53,8 @@ def wget(url, to):
 
 
 def get_duration_sox(fpath):
-    print(f"\n\n\n\n\n\n {fpath} \n\n\n\n\n\n\n")
-    print(librosa.get_duration(filename=file_path), "\n\n\n\n\n\n\n\n")
+    #print(f"\n\n\n\n\n\n {fpath} \n\n\n\n\n\n\n")
+    return librosa.get_duration(filename=fpath)
     out = (
         subprocess.check_output(f"sox --i {fpath}", shell=True)
         .decode("utf-8")
@@ -71,6 +71,7 @@ def get_duration_sox(fpath):
 
 
 def get_sample_rate_sox(fpath):
+    return librosa.get_samplerate(filename=fpath)
     out = (
         subprocess.check_output(f"sox --i {fpath}", shell=True)
         .decode("utf-8")
