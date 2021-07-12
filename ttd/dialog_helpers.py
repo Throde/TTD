@@ -90,13 +90,12 @@ def get_frame_word_level_lookup(word_level_dialog, n_frames, duration, fill="sta
             print("n_frames: ", n_frames)
             print("start: ", ss, "percentage: ", start)
             print("end: ", ee, "percentage: ", end)
-            print(word_level_dialog)
 
             # DH: breakpoint
             print(">> Exception:", fill, frame_array_lookup[speaker_id], word_level_index )
             print(">> msg:", str(e))
             input()
-            break
+            break   # just chunk it
             
             # __import__("ipdb").set_trace()
     return frame_array_lookup

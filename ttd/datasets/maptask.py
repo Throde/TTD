@@ -130,10 +130,6 @@ class MaptaskBuilder(BaseBuilder):
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
         # DH break point: word_level_files
-        # print(">> word level files:", word_level_files)
-        # print(word_level_files[0], basename(word_level_files[0]) )
-        # print( self.get_audio_path(basename(word_level_files[0]).replace(".json", "")) )
-        # print( join(self.vad_root, basename(word_level_files[0]).replace(".json", ".pt")) )
         input(">> Going to process word level into turns... Press any key.")
 
         for word_level_path in tqdm(word_level_files):
