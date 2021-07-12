@@ -185,6 +185,7 @@ class BaseBuilder(object):
 
         self.hparams = hparams
         self.set_paths()
+        # DH note: some datasets already have train/val/test .txt files along with their data
         self.train_filepaths = self.get_filepaths(split="train")
         self.val_filepaths = self.get_filepaths(split="val")
         self.test_filepaths = self.get_filepaths(split="test")
@@ -531,6 +532,12 @@ class BaseBuilder(object):
 
     def transform_split_filepaths_with_chunks(self, chunked_path, sep="_#"):
         chunked_files = glob(join(chunked_path, "*.json"))
+
+        # DH: some dataset builder write splits into .txt after _process_turn_level()
+        # read .txt again to ensure the filepaths are correctly loaded
+        self.train_filepaths = self.get_filepaths(split="train")
+        self.val_filepaths = self.get_filepaths(split="val")
+        self.test_filepaths = self.get_filepaths(split="test")
         
         train_extended = []
         val_extended = []
