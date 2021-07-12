@@ -531,6 +531,8 @@ class BaseBuilder(object):
 
     def transform_split_filepaths_with_chunks(self, chunked_path, sep="_#"):
         chunked_files = glob(join(chunked_path, "*.json"))
+        # DH breakpoint
+        print(">>TTD builder:", chunked_files)
 
         train_extended = []
         val_extended = []
@@ -540,6 +542,9 @@ class BaseBuilder(object):
             filename = basename(f)
             name = filename.replace(".json", "").split(sep)[0]
             orig_name = name + ".json"
+            # DH breakpoint
+            print(">> transforming:", f, orig_name)
+            print(">> train, test, val paths:", self.train_filepaths, self.test_filepaths, self.val_filepaths)
             if orig_name in self.train_filepaths:
                 train_extended.append(filename)
             if orig_name in self.test_filepaths:
