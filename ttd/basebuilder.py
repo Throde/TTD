@@ -206,8 +206,6 @@ class BaseBuilder(object):
         if isinstance(filepaths, str):
             if exists(filepaths):
                 filepaths = read_txt(filepaths)
-            else:
-                raise FileNotFoundError("text files for train/val/test paths not found!")
         return filepaths
 
     def check_if_dir_exists(self, dir_path, file_ext=None):
