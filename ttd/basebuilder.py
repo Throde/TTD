@@ -206,6 +206,8 @@ class BaseBuilder(object):
         if isinstance(filepaths, str):
             if exists(filepaths):
                 filepaths = read_txt(filepaths)
+            else:
+                raise FileNotFoundError("text files for train/val/test paths not found!")
         return filepaths
 
     def check_if_dir_exists(self, dir_path, file_ext=None):
@@ -278,14 +280,14 @@ class BaseBuilder(object):
             return self.vad_root
 
     def prepare_f0(
-        self,
-        sr=8000,
-        hop_time=0.01,
-        f0_min=60,
-        f0_max=300,
-        f0_threshold=0.3,
-        vad_mask=True,
-    ):
+            self,
+            sr=8000,
+            hop_time=0.01,
+            f0_min=60,
+            f0_max=300,
+            f0_threshold=0.3,
+            vad_mask=True,
+        ):
         f0_path = self.get_f0_path(sr, hop_time, f0_min, f0_max, f0_threshold, vad_mask)
         if not self.check_if_dir_exists(f0_path):
             extractor = ExtractF0(
@@ -531,9 +533,7 @@ class BaseBuilder(object):
 
     def transform_split_filepaths_with_chunks(self, chunked_path, sep="_#"):
         chunked_files = glob(join(chunked_path, "*.json"))
-        # DH breakpoint
-        print(">>TTD builder:", chunked_files)
-
+        
         train_extended = []
         val_extended = []
         test_extended = []
@@ -544,14 +544,16 @@ class BaseBuilder(object):
             orig_name = name + ".json"
             # DH breakpoint
             print(">> transforming:", f, orig_name)
-            print(">> train, test, val paths:", self.train_filepaths, self.test_filepaths, self.val_filepaths)
             if orig_name in self.train_filepaths:
                 train_extended.append(filename)
             if orig_name in self.test_filepaths:
                 val_extended.append(filename)
             if orig_name in self.val_filepaths:
                 test_extended.append(filename)
-
+        
+        # DH breakpoint
+        #print(">>TTD builder:", chunked_files)
+        print(">> train, test, val paths:", self.train_filepaths, self.test_filepaths, self.val_filepaths)
         print(self.NAME)
         print(f"Train {len(self.train_filepaths)} -> {len(train_extended)}")
         print(f"val {len(self.val_filepaths)} -> {len(val_extended)}")
