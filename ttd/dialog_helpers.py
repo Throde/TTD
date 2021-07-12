@@ -84,13 +84,19 @@ def get_frame_word_level_lookup(word_level_dialog, n_frames, duration, fill="sta
                 ss = int(start * n_frames)  # percent to frame
                 ee = math.ceil(end * n_frames)
                 frame_array_lookup[speaker_id, ss:ee] = word_level_index
-        except:
+        except Exception as e:
             ss = int(start * n_frames)  # percent to frame
             ee = math.ceil(end * n_frames)
             print("n_frames: ", n_frames)
             print("start: ", ss)
             print("end: ", ee)
-            __import__("ipdb").set_trace()
+
+            # DH: breakpoint
+            print(">> Exception:", fill, frame_array_lookup[speaker_id], word_level_index )
+            print(">> msg:", str(e))
+            input()
+            
+            # __import__("ipdb").set_trace()
     return frame_array_lookup
 
 
