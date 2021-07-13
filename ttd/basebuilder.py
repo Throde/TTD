@@ -377,12 +377,6 @@ class BaseBuilder(object):
             if len(broken_files) > 0:
                 print(f"{self.NAME} broken", broken)
                 write_txt(broken_files, join(self.root, "broken_tokenize.txt"))
-        
-        try:
-            input(">> spliting data swb. Press any key")
-            self.split_data_switchboard()
-        except:
-            pass
 
         return self.tokenized_turn_level_root
 
@@ -470,6 +464,13 @@ class BaseBuilder(object):
                 write_json(
                     explicit_turns, join(tokenized_explicit_turn_path, json_name)
                 )
+
+        try:
+            input(">> spliting data swb. Press any key")
+            self.split_data_switchboard()
+        except:
+            pass
+        
         return tokenized_explicit_turn_path
 
     def prepare_explicit_word_level_tokens(self, tokenizer, EOT_token_id=None):
