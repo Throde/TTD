@@ -139,18 +139,8 @@ class SwitchboardBuilder(BaseBuilder):
         # loop over entries in the word-level processing and transform to turns
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
-        # DH: split datasets into train/val/test sets
-        train_filepaths, val_filepaths, test_filepaths = [], [], []
-
         for word_level_path in tqdm(word_level_files):
             json_name = basename(word_level_path)
-            # DH: add json_name to three sets
-            if len(test_filepaths)<len(word_level_files)*0.1:
-                test_filepaths.append(json_name)
-            elif len(val_filepaths)<len(word_level_files)*0.1:
-                val_filepaths.append(json_name)
-            else:
-                train_filepaths.append(json_name)
 
             audio_path = self.get_audio_path(json_name.replace(".json", ""))
             vad_path = join(self.vad_root, json_name.replace(".json", ".pt"))
@@ -173,6 +163,20 @@ class SwitchboardBuilder(BaseBuilder):
             except FileNotFoundError:
                 print(">> A file is missing:", vad_path)
                 continue
+
+    def split_data_switchboard(self):
+        word_level_files = glob(join(self.word_level_root, "*.json"))
+        # DH: independent codes for spliting dataset into train/val/test sets
+        train_filepaths, val_filepaths, test_filepaths = [], [], []
+        for word_level_path in word_level_files:
+            json_name = basename(word_level_path)
+            # DH: add json_name to three sets
+            if len(test_filepaths)<len(word_level_files)*0.1:
+                test_filepaths.append(json_name)
+            elif len(val_filepaths)<len(word_level_files)*0.1:
+                val_filepaths.append(json_name)
+            else:
+                train_filepaths.append(json_name)
         write_txt(train_filepaths, join(self.root, "train.txt"))
         write_txt(val_filepaths, join(self.root, "val.txt"))
         write_txt(test_filepaths, join(self.root, "test.txt"))

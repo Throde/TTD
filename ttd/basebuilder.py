@@ -377,6 +377,13 @@ class BaseBuilder(object):
             if len(broken_files) > 0:
                 print(f"{self.NAME} broken", broken)
                 write_txt(broken_files, join(self.root, "broken_tokenize.txt"))
+        
+        try:
+            input(">> spliting data swb. Press any key")
+            self.split_data_switchboard()
+        except:
+            pass
+
         return self.tokenized_turn_level_root
 
     def prepare_word_level_tokens(self, tokenizer):
