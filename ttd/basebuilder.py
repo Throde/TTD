@@ -272,10 +272,15 @@ class BaseBuilder(object):
 
                 word_level_dialog = read_json(word_level_path)
                 audio_path = self.get_audio_path(json_name)
-                vad = vad_from_word_level(word_level_dialog, audio_path)
-                # vad = words_to_vad_percentage(word_level_dialog, audio_path)
-                vad_path = join(self.vad_root, json_name)
-                torch.save(vad, join(self.vad_root, json_name.replace(".json", ".pt")))
+                # DH: account that annotations and audio files mismatch (missing data)
+                try:
+                    vad = vad_from_word_level(word_level_dialog, audio_path)
+                    # vad = words_to_vad_percentage(word_level_dialog, audio_path)
+                    vad_path = join(self.vad_root, json_name)
+                    torch.save(vad, join(self.vad_root, json_name.replace(".json", ".pt")))
+                except FileNotFoundError:
+                    print(">> A file is missing: ", audio_path)
+                    continue
             return self.vad_root
 
     def prepare_f0(
