@@ -114,11 +114,12 @@ class SwitchboardBuilder(BaseBuilder):
         print("Annotations download complete!")
 
     def download_audio(self):
-        c = input(">> Rename audio file names? [yes/no]")
-        if c=="yes":
-            # rename audio files: sw02919.sph -> sw2919.sph
-            for wav_file in glob(join(self.audio_root, "*.sph")):
-                shutil.move(wav_file, wav_file.replace("sw0", "sw"))
+        # DH: Assume switchboard data is already in AUDIO_PATH. (you should put them there by hand)
+        # c = input(">> Rename audio file names? [yes/no]")
+        # if c=="yes":
+        #     # rename audio files: sw02919.sph -> sw2919.sph
+        #     for wav_file in glob(join(self.audio_root, "*.sph")):
+        #         shutil.move(wav_file, wav_file.replace("sw0", "sw"))
         
         raise NotImplementedError(
             "Not freely available... Can't download switchboard audio"
@@ -142,19 +143,24 @@ class SwitchboardBuilder(BaseBuilder):
             audio_path = self.get_audio_path(json_name.replace(".json", ""))
             vad_path = join(self.vad_root, json_name.replace(".json", ".pt"))
 
-            word_level_dialog = read_json(word_level_path)
-            vad = torch.load(vad_path)  # list of (start, end) times
-            duration = get_duration_sox(audio_path)
-            sr = get_sample_rate_sox(audio_path)
+            # DH: switchboard annotation mismatch audio data: sw4361
+            try:
+                word_level_dialog = read_json(word_level_path)
+                vad = torch.load(vad_path)  # list of (start, end) times
+                duration = get_duration_sox(audio_path)
+                sr = get_sample_rate_sox(audio_path)
 
-            word_level_turns = word_level_to_turns(
-                word_level_dialog,
-                vad,
-                duration,
-                sr,
-            )
+                word_level_turns = word_level_to_turns(
+                    word_level_dialog,
+                    vad,
+                    duration,
+                    sr,
+                )
 
-            write_json(word_level_turns, join(self.turn_level_root, json_name))
+                write_json(word_level_turns, join(self.turn_level_root, json_name))
+            except FileNotFoundError:
+                print(">> A file is missing:", vad_path)
+                continue
 
     def _process_word_level(self):
         print(f"{self.NAME}: process_word_level")  # logger
