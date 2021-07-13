@@ -164,7 +164,7 @@ class SwitchboardBuilder(BaseBuilder):
                 print(">> A file is missing:", vad_path)
                 continue
 
-    def split_data_switchboard(self):
+    def _split_data(self):
         word_level_files = glob(join(self.word_level_root, "*.json"))
         # DH: independent codes for spliting dataset into train/val/test sets
         train_filepaths, val_filepaths, test_filepaths = [], [], []

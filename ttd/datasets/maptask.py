@@ -130,12 +130,6 @@ class MaptaskBuilder(BaseBuilder):
         # loop over entries in the word-level processing and transform to turns
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
-        # DH break point: word_level_files
-        input(">> Going to process word level into turns... Press any key.")
-
-        # DH: split datasets into train/val/test sets
-        train_filepaths, val_filepaths, test_filepaths = [], [], []
-
         for word_level_path in tqdm(word_level_files):
             json_name = basename(word_level_path)
             # DH: add json_name to three sets
@@ -165,6 +159,21 @@ class MaptaskBuilder(BaseBuilder):
             )
 
             write_json(word_level_turns, join(self.turn_level_root, json_name))
+
+    def _split_data(self):
+        # DH: split datasets into train/val/test sets
+        train_filepaths, val_filepaths, test_filepaths = [], [], []
+        word_level_files = glob(join(self.word_level_root, "*.json"))
+
+        for word_level_path in tqdm(word_level_files):
+            json_name = basename(word_level_path)
+            # DH: add json_name to three sets
+            if len(test_filepaths)<len(word_level_files)*0.1:
+                test_filepaths.append(json_name)
+            elif len(val_filepaths)<len(word_level_files)*0.1:
+                val_filepaths.append(json_name)
+            else:
+                train_filepaths.append(json_name)
         write_txt(train_filepaths, join(self.root, "train.txt"))
         write_txt(val_filepaths, join(self.root, "val.txt"))
         write_txt(test_filepaths, join(self.root, "test.txt"))

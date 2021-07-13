@@ -465,12 +465,13 @@ class BaseBuilder(object):
                     explicit_turns, join(tokenized_explicit_turn_path, json_name)
                 )
 
-        try:
-            input(">> spliting data swb. Press any key")
-            self.split_data_switchboard()
-        except:
-            pass
-        
+        # DH: split data for switchboard and maptask
+        # try:
+        #     print(">> Spliting data... Press any key")
+        #     self._split_data()
+        # except:
+        #     pass
+
         return tokenized_explicit_turn_path
 
     def prepare_explicit_word_level_tokens(self, tokenizer, EOT_token_id=None):
