@@ -171,13 +171,9 @@ class SwitchboardBuilder(BaseBuilder):
         for word_level_path in word_level_files:
             json_name = basename(word_level_path)
             # DH: add json_name to three sets
-            # if len(test_filepaths)<len(word_level_files)*0.1:
-            #     test_filepaths.append(json_name)
-            # elif len(val_filepaths)<len(word_level_files)*0.1:
-            #     val_filepaths.append(json_name)
-            # else:
-            #     train_filepaths.append(json_name)
-            if len(val_filepaths)<len(word_level_files)*0.2:
+            if len(test_filepaths)<len(word_level_files)*0.1:
+                test_filepaths.append(json_name)
+            elif len(val_filepaths)<len(word_level_files)*0.1:
                 val_filepaths.append(json_name)
             else:
                 train_filepaths.append(json_name)
