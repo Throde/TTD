@@ -495,8 +495,8 @@ class BaseBuilder(object):
         return tokenized_explicit_word_path
 
     def prepare_chunked_tokens(
-        self, tokenized_path, chunk_size, overlap, keep_length, sep="_#"
-    ):
+            self, tokenized_path, chunk_size, overlap, keep_length, sep="_#"
+        ):
         assert chunk_size > 0, "chunk size must be larger than 0"
         tokenized_chunk_path = tokenized_path + f"_chunk-{chunk_size}"
 
@@ -559,7 +559,6 @@ class BaseBuilder(object):
                 test_extended.append(filename)
         
         # DH breakpoint
-        #print(">>TTD builder:", chunked_files)
         print(">> train, test, val paths:", self.train_filepaths, self.test_filepaths, self.val_filepaths)
         print(self.NAME)
         print(f"Train {len(self.train_filepaths)} -> {len(train_extended)}")
