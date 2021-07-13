@@ -114,6 +114,12 @@ class SwitchboardBuilder(BaseBuilder):
         print("Annotations download complete!")
 
     def download_audio(self):
+        c = input(">> Rename audio file names? [yes/no]")
+        if c=="yes":
+            # rename audio files: sw02919.sph -> sw2919.sph
+            for wav_file in glob(join(self.audio_root, "*.sph")):
+                shutil.move(wav_file, wav_file.replace("sw0", "sw"))
+        
         raise NotImplementedError(
             "Not freely available... Can't download switchboard audio"
         )
@@ -155,7 +161,7 @@ class SwitchboardBuilder(BaseBuilder):
 
         # check if word level exits
         if not self.check_if_dir_exists(self.word_level_root):
-            print(f"{self.NAME}: world level data not found")
+            print(f"{self.NAME}: wold level data not found")
             if not (exists(self.raw_data_root) and isdir(self.raw_data_root)):
                 print("raw data not found: ", self.raw_data_root)
                 self.download_text()

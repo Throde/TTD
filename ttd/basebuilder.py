@@ -542,13 +542,19 @@ class BaseBuilder(object):
         train_extended = []
         val_extended = []
         test_extended = []
+        # DH addition:
+        print(">> sample transform_split_filepaths_with_chunks:")
+        sample = True
+
         for f in chunked_files:
             path = split(f)[0]
             filename = basename(f)
             name = filename.replace(".json", "").split(sep)[0]
             orig_name = name + ".json"
             # DH breakpoint
-            print(">> transforming:", f, orig_name)
+            if sample:
+                print(">> transforming:", f, orig_name)
+                sample = False
             if orig_name in self.train_filepaths:
                 train_extended.append(filename)
             if orig_name in self.test_filepaths:
