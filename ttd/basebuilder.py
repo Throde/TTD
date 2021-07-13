@@ -548,7 +548,7 @@ class BaseBuilder(object):
         val_extended = []
         test_extended = []
         # DH addition:
-        print(">> sample transform_split_filepaths_with_chunks:")
+        print(">> Sample transform_split_filepaths_with_chunks:")
         print(f">> transforming: {chunked_files[0]} to {basename(chunked_files[0]).replace('.json', '').split(sep)[0] + '.json'}")
 
         for f in chunked_files:
@@ -564,7 +564,8 @@ class BaseBuilder(object):
                 test_extended.append(filename)
         
         # DH breakpoint
-        print(">> train, test, val paths:", self.train_filepaths, self.test_filepaths, self.val_filepaths)
+        print(">> Sample test paths:", self.test_filepaths)
+
         print(self.NAME)
         print(f"Train {len(self.train_filepaths)} -> {len(train_extended)}")
         print(f"val {len(self.val_filepaths)} -> {len(val_extended)}")
