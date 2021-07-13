@@ -573,7 +573,7 @@ class BaseBuilder(object):
                 test_extended.append(filename)
         
         # DH breakpoint
-        print(">> Sample test paths:", self.test_filepaths)
+        print(">> Sample train paths (head5):", self.test_filepaths[:min(5,len(self.test_filepaths))])
 
         print(self.NAME)
         print(f"Train {len(self.train_filepaths)} -> {len(train_extended)}")

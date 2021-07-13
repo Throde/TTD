@@ -165,7 +165,7 @@ class MaptaskBuilder(BaseBuilder):
         train_filepaths, val_filepaths, test_filepaths = [], [], []
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
-        for word_level_path in tqdm(word_level_files):
+        for word_level_path in word_level_files:
             json_name = basename(word_level_path)
             # DH: add json_name to three sets
             if len(test_filepaths)<len(word_level_files)*0.1:
