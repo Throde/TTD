@@ -99,6 +99,7 @@ class DailydialogBuilder(BaseBuilder):
                 zip(dialog_text, dialog_emotion, dialog_act),
                 desc=split,
                 total=len(dialog_act),
+                ascii=True
             ):
                 text = text.strip().split(self.EOT)[:-1]
                 emotion = emotion.split()

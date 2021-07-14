@@ -139,7 +139,7 @@ class SwitchboardBuilder(BaseBuilder):
         # loop over entries in the word-level processing and transform to turns
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
-        for word_level_path in tqdm(word_level_files):
+        for word_level_path in tqdm(word_level_files, ascii=True):
             json_name = basename(word_level_path)
 
             audio_path = self.get_audio_path(json_name.replace(".json", ""))
@@ -197,7 +197,7 @@ class SwitchboardBuilder(BaseBuilder):
             changed_words = 0
             total_words = 0
             for DD in tqdm(
-                listdir(self.raw_data_root), desc=f"{self.NAME} Word level dialogs"
+                listdir(self.raw_data_root), desc=f"{self.NAME} Word level dialogs", ascii=True
             ):
                 DD = join(self.raw_data_root, DD)
                 if isdir(DD):

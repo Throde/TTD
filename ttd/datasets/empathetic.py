@@ -79,7 +79,7 @@ class EmpatheticBuilder(BaseBuilder):
             omit_next_dialog = False
             last_conv_id = data[1].strip().split(",")[0]
             for i in tqdm(
-                range(1, len(data)), desc=f"{self.NAME} Turn-level ({filename})"
+                range(1, len(data)), desc=f"{self.NAME} Turn-level ({filename})", ascii=True
             ):  # skip header
                 row = data[i].strip().split(",")
                 conv_id = row[0]

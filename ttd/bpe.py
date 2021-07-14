@@ -45,6 +45,7 @@ class TextExtraction:
         for filepath in tqdm(
             glob(join(builder.turn_level_root, "*.json")),
             desc=f"ToText {builder.NAME}",
+            ascii=True, 
         ):
             dialog = read_json(filepath)
             for turn in dialog:
@@ -59,6 +60,7 @@ class TextExtraction:
         for filepath in tqdm(
             glob(join(builder.word_level_root, "*.json")),
             desc=f"ToText {builder.NAME}",
+            ascii=True, 
         ):
             dialog = read_json(filepath)
             text = []

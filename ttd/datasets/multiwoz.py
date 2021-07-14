@@ -42,7 +42,7 @@ class MultiwozBuilder(BaseBuilder):
         val_filepaths = read_txt(join(self.raw_data_root, "valListFile.json"))
         train_filepaths = []
 
-        for session_name, v in tqdm(data.items(), desc=f"{self.NAME} Turn-level"):
+        for session_name, v in tqdm(data.items(), desc=f"{self.NAME} Turn-level", ascii=True):
             dialog = []
             start = 0
             for i, utt in enumerate(v["log"]):

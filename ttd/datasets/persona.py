@@ -60,7 +60,7 @@ class PersonaBuilder(BaseBuilder):
             tmp_turns = []
             turn_ind = 0
             start = 0
-            for d in tqdm(dialogs, desc=file):
+            for d in tqdm(dialogs, desc=file, ascii=True):
                 n = int(d[0])
                 if n > turn_ind:  # conversation continues
                     utts = d.split("\t")[:2]

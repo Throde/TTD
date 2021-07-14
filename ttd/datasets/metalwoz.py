@@ -79,7 +79,7 @@ class MetalwozBuilder(BaseBuilder):
 
         t = time.time()
         for datafile in tqdm(
-            glob(join(self.raw_data_root, "*.txt")), desc=f"{self.NAME} Turn-level"
+            glob(join(self.raw_data_root, "*.txt")), desc=f"{self.NAME} Turn-level", ascii=True
         ):
             filename = basename(datafile)
             if filename == "tasks.txt":

@@ -99,7 +99,7 @@ def builder_vad_stats(builder, vad_step_time=0.01, ipu_frame_thresh=-1):
 
     turn_floor_offsets = []
     all_pauses = []
-    for filename in tqdm(filenames):
+    for filename in tqdm(filenames, ascii=True):
         vad = torch.load(join(builder.vad_root, filename.replace(".json", ".pt")))
         audio_path = builder.get_audio_path(filename.replace(".json", ""))
         y, sr = load_audio(audio_path)

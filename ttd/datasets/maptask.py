@@ -130,7 +130,7 @@ class MaptaskBuilder(BaseBuilder):
         # loop over entries in the word-level processing and transform to turns
         word_level_files = glob(join(self.word_level_root, "*.json"))
 
-        for word_level_path in tqdm(word_level_files):
+        for word_level_path in tqdm(word_level_files, ascii=True):
             json_name = basename(word_level_path)
             # DH: add json_name to three sets
             if len(test_filepaths)<len(word_level_files)*0.1:
@@ -197,7 +197,7 @@ class MaptaskBuilder(BaseBuilder):
             token_path = join(self.raw_data_root, "Data/tokens")
 
             dialog_ids = set([f.split(".")[0] for f in listdir(tu_path)])
-            for dialog_id in tqdm(dialog_ids, desc=f"{self.NAME} Dialogs"):
+            for dialog_id in tqdm(dialog_ids, desc=f"{self.NAME} Dialogs", ascii=True):
                 tu_path_g = join(tu_path, dialog_id + ".g.timed-units.xml")
                 tu_path_f = join(tu_path, dialog_id + ".f.timed-units.xml")
 

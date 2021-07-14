@@ -9,7 +9,6 @@ from ttd.utils import find_island_idx_len
 import torchaudio
 import torchaudio.transforms as AT
 from ttd.vad_helpers import percent_to_onehot
-from tqdm import tqdm
 
 
 def F0_swipe(

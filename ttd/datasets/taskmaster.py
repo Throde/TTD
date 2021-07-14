@@ -65,7 +65,7 @@ class TaskmasterBuilder(BaseBuilder):
 
         total, skipped = 0, 0
         t = time.time()
-        for json_path in tqdm(glob(join(self.raw_data_root, "*.json")), desc=self.NAME):
+        for json_path in tqdm(glob(join(self.raw_data_root, "*.json")), desc=self.NAME, ascii=True):
             data_name = basename(json_path).replace(".json", "")
             dialogs = read_json(json_path)
 

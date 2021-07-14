@@ -80,6 +80,7 @@ class ExtractF0(object):
                     p.imap_unordered(self._process, audio_files),
                     total=len(audio_files),
                     desc=f"F0 ({self.n_process} processes)",
+                    ascii=True, 
                 )
             )
 
@@ -238,7 +239,7 @@ class BaseBuilder(object):
             # Iterate over the turn_level_dialogs and constructs vad base on the duration
             # (using the audio path and the sox to extract the duration of the audio)
             files = glob(join(self.turn_level_root, "*.json"))
-            for turn_level_path in tqdm(files, desc=f"{self.NAME} POS"):
+            for turn_level_path in tqdm(files, desc=f"{self.NAME} POS", ascii=True):
                 turn_level_dialog = read_json(turn_level_path)
                 pos, words = extract_turn_level_pos(turn_level_dialog)
                 write_json(
@@ -267,7 +268,7 @@ class BaseBuilder(object):
             # Iterate over the word_level_dialogs and constructs vad base on the duration
             # (using the audio path and the sox to extract the duration of the audio)
             files = glob(join(self.word_level_root, "*.json"))
-            for word_level_path in tqdm(files, desc=f"{self.NAME} VAD"):
+            for word_level_path in tqdm(files, desc=f"{self.NAME} VAD", ascii=True):
                 json_name = basename(word_level_path)
 
                 word_level_dialog = read_json(word_level_path)
@@ -339,6 +340,7 @@ class BaseBuilder(object):
             for turn_level_path in tqdm(
                 glob(join(self.turn_level_root, "*.json")),
                 desc=f"Tokenizing Turn-level {self.NAME}",
+                ascii=True, 
             ):
                 turn_level_dialog = read_json(turn_level_path)
 
@@ -396,7 +398,7 @@ class BaseBuilder(object):
             broken = 0
             broken_files = []
             for word_level_path in tqdm(
-                glob(join(self.word_level_root, "*.json")), desc=desc
+                glob(join(self.word_level_root, "*.json")), desc=desc, ascii=True
             ):
                 json_name = basename(word_level_path)
                 word_level_dialog = read_json(word_level_path)
@@ -454,7 +456,7 @@ class BaseBuilder(object):
 
             tok_files = glob(join(self.tokenized_turn_level_root, "*.json"))
             for tokenized_turn_level_path in tqdm(
-                tok_files, desc=f"{self.NAME} Explicit turns"
+                tok_files, desc=f"{self.NAME} Explicit turns", ascii=True
             ):
                 tokenized_turn_level_dialog = read_json(tokenized_turn_level_path)
                 explicit_turns = add_explicit_turn_shift_token(
@@ -496,7 +498,7 @@ class BaseBuilder(object):
 
             tok_files = glob(join(self.tokenized_word_level_root, "*.json"))
             for tokenized_turn_level_path in tqdm(
-                tok_files, desc=f"{self.NAME} Explicit turns"
+                tok_files, desc=f"{self.NAME} Explicit turns", ascii=True
             ):
                 tokenized_turn_level_dialog = read_json(tokenized_turn_level_path)
                 explicit_turns = add_explicit_turn_shift_token(
@@ -525,7 +527,7 @@ class BaseBuilder(object):
             shutil.copy(src, dst)
 
             tokenized_files = glob(join(tokenized_path, "*.json"))
-            for json_path in tqdm(tokenized_files, desc=f"{self.NAME} Chunk"):
+            for json_path in tqdm(tokenized_files, desc=f"{self.NAME} Chunk", ascii=True):
                 tokenized_dialog = read_json(json_path)
                 chunked_dialogs = chunk_tokenized_dialog(
                     tokenized_dialog, chunk_size, overlap, keep_length
