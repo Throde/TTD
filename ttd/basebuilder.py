@@ -473,6 +473,7 @@ class BaseBuilder(object):
         #     self._split_data()
         # except:
         #     pass
+        
 
         return tokenized_explicit_turn_path
 
