@@ -468,11 +468,11 @@ class BaseBuilder(object):
                 )
 
         # DH: split data for switchboard and maptask
-        try:
-            print(">> Spliting data ... (only work with switchboard and maptask)")
-            self._split_data()
-        except:
-            pass
+        # try:
+        #     print(">> Spliting data ... (only work with switchboard and maptask)")
+        #     self._split_data()
+        # except:
+        #     pass
 
         return tokenized_explicit_turn_path
 
